@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+  <link href='http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js' type='text/javascript'></script>
+  <link rel="shortcut icon" href="">
+  <script language="JavaScript" type="text/javascript" src="availabilityCheck.js"></script>
+  <script language="JavaScript" type="text/javascript" src="passwordStrength.js"></script> 
+  <script language="JavaScript" type="text/javascript" src="validateForm.js"></script>
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/tripledes.js"></script>
+  <link rel="stylesheet" type="text/css" href="mystyle.css" />	
+  <meta name="author" content="Otelo Magalhães" />
+
+</head>
+<body>
+
+  <div class='container'>
+    <div class='panel panel-primary dialog-panel' style='background-color:#E6E6FA'>
+      
+      <div class='panel-body'>
+        <form class='form-horizontal' id='form' role='form' action="server.php" method="POST">
+          <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='email'>Email</label>
+            <div class='col-md-6'>
+              <input class='form-control' type="email" id="email" name="email" placeholder="Ex: otelo@polygon.pt" title="Exemplo: otelo@polygon.pt" required>
+              <span id="email_availability_result"></span>
+              
+            </div>
+          </div>
+		  <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='confirm_email'>Confirmar Email</label>
+            <div class='col-md-6'>
+              <input class='form-control' type="email" id="confirm_email" name="confirm_email" disabled="true" title="Exemplo: otelo@polygon.pt" required >
+            </div>
+          </div>
+		  
+		  <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='password'>Password</label>
+            <div class='col-md-3'>
+              <input class='form-control' type="password" id="password" name="password" placeholder="Insira a sua password" title="Tamanho mínimo: 6 caracteres.">
+              <span id="passstrength"></span>
+              
+              <div class="progress">
+              <div class="barInit" id="pwbar" role="progressbar"
+              aria-valuemin="0" aria-valuemax="100">
+                <span id="pwbartext">Medidor de Força da Password</span>
+              </div>
+            </div>
+			
+            </div>
+          </div>
+		  <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='confirm_password'>Confirmar Password</label>
+            <div class='col-md-3'>
+              <input class='form-control' disabled="true" type="password" id="confirm_password" name="confirm_password" >
+            </div>
+          </div>
+		  
+          <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Nome</label>
+            <div class='col-md-8'>
+              
+              <div class='col-md-3 indent-small'>
+                 <div class='form-group internal'> 
+                  <input class='form-control' id='first_name' name='first_name'  placeholder='Nome' type='text'>
+                </div> 
+             </div> 
+              <div class='col-md-3 indent-small'> 
+                <div class='form-group internal'> 
+                  <input class='form-control' id='last_name' placeholder='Apelido' type='text' name='last_name'>
+                 </div> 
+               </div>
+            </div>
+          </div>
+		  
+		  <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='confirm_email'>Rua / Nº</label>
+            <div class='col-md-6'>
+              <input class='form-control' type="text" placeholder="Rua Pedro Almeida, N.5, 4ºE" id="address" name="address" >
+            </div>
+          </div>
+
+		
+		  <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='postal_code'>Código Postal / Localidade</label>
+            <div class='col-md-8'>
+              
+              <div class='col-md-3 indent-small'>
+                <div class='form-group internal'>
+                  <input class='form-control' type="text" id="postal_code" name="postal_code" pattern="[0-9]{4}-[0-9]{3}" title="XXXX-XXX" placeholder="Ex. 9999-999" >
+                </div>
+              </div>
+              <div class='col-md-6 indent-small'>
+                <div class='form-group internal'>
+                  <input class='form-control' id='city' type='text' placeholder="Cidade" name='city'>
+                </div>
+              </div>
+            </div>
+          </div>
+		  
+          <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='confirm_email'>Pa&iacute;s</label>
+            <div class='col-md-3'>
+			  <select name="country" id="country" class='form-control'>
+                  <option value="PT">Portugal</option>
+                  <option value="ES">Espanha</option>
+                  <option value="BR">Brasil</option>
+                  <option value="FR">França</option>
+                </select>
+            </div>
+          </div>
+          
+         
+          <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='confirm_email'>NIF</label>
+            <div class='col-md-3'>
+              <input class='form-control' type="text" id="nif" name="nif" pattern="[0-9]{9}" title="9 números." placeholder="Ex: 123456789">
+            </div>
+          </div>
+		  
+		  <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='confirm_email'>Telefone</label>
+            <div class='col-md-3'>
+              <input class='form-control' type="text" id="phone" name="phone" placeholder="Insira o número aqui" title="Só aceita números PT caso escolha PT acima.">
+            </div>
+          </div>
+          
+          
+          <div class='form-group'>
+            <div class='col-md-offset-4 col-md-4'>
+              <button class='disabled' id='btnSubmit' type='submit' disabled="true" >Registo</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
